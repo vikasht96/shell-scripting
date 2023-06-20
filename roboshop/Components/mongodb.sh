@@ -28,14 +28,16 @@ echo "Install ${COMPONENT}"
 yum install -y mongodb-org &>> $LOGFILE
 status $?
 
-echo "Start ${COMPONENT}"
-systemctl enable mongod
-systemctl start mongod
 
-status $?
 
 echo "updating the configeration file"
-sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>> $LOGFILE
+status $?
+
+echo "Start ${COMPONENT}"
+systemctl daemon.reload mongod &>> $LOGFILE
+systemctl enable mongod &>> $LOGFILE
+systemctl restart mongod &>> $LOGFILE
 status $?
 
 # curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/stans-robot-project/mongodb/main/mongo.repo
