@@ -10,35 +10,40 @@ echo "This action perform only root user"
 exit 1
 fi
 
+status(){
+    if [ $1 -eq 0 ]; then
+        echo "Success"
+    else
+        echo "Failure"
+    fi
+}
 
 echo "Nginix install"
 yum install nginx -y &>> $LOGFILE
 
-if [ $? -eq 0 ]; then
-    echo "Success"
-else
-    echo "Failure"
-fi
+status $?
 
 echo "Downloading the ${COMPONENT} component"
 
-curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
+curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/stans-robot-project/${COMPONENT}/archive/main.zip"
 
-if [ $? -eq 0 ]; then
-    echo "Success"
-else
-    echo "Failure"
-fi
+status $?
 
 echo "Perfoming cleanup"
 cd /usr/share/nginx/html
 rm -rf * &>> $LOGFILE
 
-if [ $? -eq 0 ]; then
-    echo "Success"
-else
-    echo "Failure"
-fi
+
+
+echo "Extract the content"
+unzip /tmp/${COMPONENT}.zip &>> $LOGFILE
+mv ${COMPONENT}-main/* . &>> $LOGFILE
+mv static/* . &>> $LOGFILE
+rm -rf ${COMPONENT}-main README.md
+mv localhost.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
+
+status $?
+
 
 
 
@@ -46,10 +51,10 @@ fi
 
 # cd /usr/share/nginx/html
 # rm -rf *
-# unzip /tmp/frontend.zip
-# mv frontend-main/* .
+# unzip /tmp/${COMPONENT}.zip
+# mv ${COMPONENT}-main/* .
 # mv static/* .
-# rm -rf frontend-main README.md
+# rm -rf ${COMPONENT}-main README.md
 # mv localhost.conf /etc/nginx/default.d/roboshop.conf
 # systemctl enable nginx
 # systemctl start nginx
