@@ -1,6 +1,7 @@
 #!/bin/bash
+
 COMPONENT=frontend
-LOGFILE = "/tmp/${COMPONENT}.log"
+LOGFILE="/tmp/${COMPONENT}.log"
 ID=$(id -u)
 
 
