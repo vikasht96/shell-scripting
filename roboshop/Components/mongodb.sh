@@ -24,6 +24,10 @@ echo "Configur the ${COMPONENT} repo"
 curl -s -o /etc/yum.repos.d/${COMPONENT}.repo https://raw.githubusercontent.com/stans-robot-project/${COMPONENT}/main/mongo.repo
 status $?
 
+echo "Install ${COMPONENT}"
+yum install -y mongodb-org
+status $?
+
 
 # curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/stans-robot-project/mongodb/main/mongo.repo
 # yum install -y mongodb-org
