@@ -55,6 +55,8 @@ mongo < catalogue.js &>> $LOGFILE
 mongo < users.js     &>> $LOGFILE
 status $?
 
+echo "${COMPONENT} component is succuessfully installed"
+
 
 
 
