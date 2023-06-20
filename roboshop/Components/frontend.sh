@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo "Inginix install"
+echo "Nginix install"
 yum install nginx -y
 # systemctl enable nginx
 # systemctl start nginx
