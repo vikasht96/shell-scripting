@@ -44,6 +44,10 @@ mv localhost.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
 
 status $?
 
+echo "Start the service for ${COMPONENT} component"
+systemctl enable nginx
+systemctl start nginx
+status $?
 
 
 
