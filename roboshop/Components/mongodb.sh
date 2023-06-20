@@ -25,7 +25,7 @@ curl -s -o /etc/yum.repos.d/${COMPONENT}.repo https://raw.githubusercontent.com/
 status $?
 
 echo "Install ${COMPONENT}"
-yum install -y mongodb-org
+yum install -y mongodb-org &>> $LOGFILE
 status $?
 
 
