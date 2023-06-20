@@ -28,6 +28,11 @@ echo "Install ${COMPONENT}"
 yum install -y mongodb-org &>> $LOGFILE
 status $?
 
+echo "Start ${COMPONENT}"
+systemctl enable mongod
+systemctl start mongod
+
+status $?
 
 # curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/stans-robot-project/mongodb/main/mongo.repo
 # yum install -y mongodb-org
