@@ -11,6 +11,7 @@ exit 1
 fi
 
 status(){
+
     if [ $1 -eq 0 ]; then
         echo "Success"
     else
@@ -21,7 +22,7 @@ status(){
 echo "Configur the ${COMPONENT} repo"
 
 curl -s -o /etc/yum.repos.d/${COMPONENT}.repo https://raw.githubusercontent.com/stans-robot-project/${COMPONENT}/main/mongo.repo
-status $1
+status $?
 
 
 # curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/stans-robot-project/mongodb/main/mongo.repo
