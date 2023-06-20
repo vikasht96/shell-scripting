@@ -34,6 +34,22 @@ echo "updating the configeration file"
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>> $LOGFILE
 status $?
 
+echo "Downoad the ${COMPONENT} schema"
+curl -s -L -o /tmp/mongodb.zip "https://github.com/stans-robot-project/mongodb/archive/main.zip" &>> $LOGFILE
+status $?
+
+echo "Extract the ${COMPONENT} component schema"
+cd /tmp
+unzip mongodb.zip &>> $LOGFILE
+status $?
+
+echo "Inject the schema for ${COMPONENT}"
+cd mongodb-main
+mongo < catalogue.js
+mongo < users.js
+status $?
+
+
 echo "Start ${COMPONENT}"
 systemctl daemon.reload mongod &>> $LOGFILE
 systemctl enable mongod &>> $LOGFILE
